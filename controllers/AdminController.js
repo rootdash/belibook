@@ -24,7 +24,13 @@ class Admin {
             await Product.create({ title, price, stock, genre, releaseYear, imageURL });
             res.redirect('/admin')
         } catch (error) {
-            res.send(error)
+            let errorMessages = [];
+            if (error.name === 'SequelizeValidationError') {
+                errorMessages = error.errors.map(err => err.message);
+            } else {
+                errorMessages.push(error.message);
+            }
+            res.render('AddProduct', { errors: errorMessages });
         }
     }
     static async editProduct(req, res) {
@@ -43,7 +49,12 @@ class Admin {
             await Product.update({ title, price, stock, genre, releaseYear, imageURL }, { where: { id: productId } });
             res.redirect('/admin')
         } catch (error) {
-            res.send(error)
+            if (error.name == 'SequelizeValidationError') {
+                res.send(error.errors[0].message)
+            } else {
+                res.send(error)
+
+            }
         }
     }
     static async deleteProduct(req, res) {

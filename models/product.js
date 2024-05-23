@@ -16,19 +16,59 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Product.init({
-    title: DataTypes.STRING,
-    price: DataTypes.INTEGER,
-    stock: DataTypes.INTEGER,
+    title: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: 'Title products cannot be empty'
+        }
+      }
+    },
+    price: {
+      type: DataTypes.INTEGER,
+      validate: {
+        notEmpty: {
+          msg: 'Price cannot be empty'
+        }
+      }
+    },
+    stock: {
+      type: DataTypes.INTEGER,
+      validate: {
+        notEmpty: {
+          msg: 'Stock cannot be empty'
+        }
+      }
+    },
     releaseYear: {
       type: DataTypes.DATE,
       get() {
         const rawValue = this.getDataValue('releaseYear');
         return rawValue ? rawValue.getFullYear() : null
+      },
+      validate: {
+        notEmpty: {
+          msg: 'Release Year cannot be empty'
+        }
       }
     }
     ,
-    genre: DataTypes.STRING,
-    imageURL: DataTypes.STRING
+    genre: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: 'Genre cannot be empty'
+        }
+      }
+    },
+    imageURL: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: 'Image Url cannot be empty'
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'Product',

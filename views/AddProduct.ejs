@@ -37,6 +37,11 @@
             background-color: #f2f2f2;
             padding: 20px;
         }
+
+        .error-message {
+            color: red;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -44,26 +49,37 @@
     <a href="/admin" class="button">Products</a>
     <h2>Create New Products</h2>
     <h4>Please fill the form below to add a new Product!</h4>
+    <% if (typeof errors !=='undefined' && errors.length> 0) { %>
+        <div class="error-message">
+            <ul>
+                <% errors.forEach(function(error) { %>
+                    <li>
+                        <%= error %>
+                    </li>
+                    <% }); %>
+            </ul>
+        </div>
+        <% } %>
+            <div>
 
-    <div>
-        <form action="/admin/addProduct" method="POST">
-            <label for="">Title</label>
-            <input type="text" id="title" name="title">
-            <label for="">Price</label>
-            <input type="text" id="price" name="price">
-            <label for="">Stock</label>
-            <input type="text" id="stock" name="stock">
-            <label for="">Genre</label>
-            <input type="text" id="genre" name="genre">
-            <label for="">Released Year</label><br>
-            <input type="date" id="releaseYear" name="releaseYear">
-            <br>
-            <label for="">Image URL</label>
-            <input type="text" id="imageURL" name="imageURL">
+                <form action="/admin/addProduct" method="POST">
+                    <label for="">Title</label>
+                    <input type="text" id="title" name="title">
+                    <label for="">Price</label>
+                    <input type="text" id="price" name="price">
+                    <label for="">Stock</label>
+                    <input type="text" id="stock" name="stock">
+                    <label for="">Genre</label>
+                    <input type="text" id="genre" name="genre">
+                    <label for="">Released Year</label><br>
+                    <input type="date" id="releaseYear" name="releaseYear">
+                    <br>
+                    <label for="">Image URL</label>
+                    <input type="text" id="imageURL" name="imageURL">
 
-            <input type="submit" value="Submit">
-        </form>
-    </div>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
 </body>
 
 </html>
