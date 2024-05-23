@@ -19,7 +19,14 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     price: DataTypes.INTEGER,
     stock: DataTypes.INTEGER,
-    releaseYear: DataTypes.DATE,
+    releaseYear: {
+      type: DataTypes.DATE,
+      get() {
+        const rawValue = this.getDataValue('releaseYear');
+        return rawValue ? rawValue.getFullYear() : null
+      }
+    }
+    ,
     genre: DataTypes.STRING,
     imageURL: DataTypes.STRING
   }, {

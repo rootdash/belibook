@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        img {
+            width: 100px;
+            height: 120px;
+        }
+
+        .button {
+            background-color: #008CBA;
+            ;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Products</h2>
+
+    <a href="/admin/addProduct" class="button">Add Products</a>
+    <table>
+        <tr>
+            <th>No.</th>
+            <th>Image</th>
+            <th>Products Name</th>
+            <th>Price</th>
+            <th>Released Year</th>
+            <th>Genre</th>
+
+            <th>Action</th>
+        </tr>
+        <% data.forEach((el, i)=> { %>
+            <tr>
+                <td>
+                    <%= i + 1 %>
+                </td>
+                <td>
+                    <img src=" <%= el.imageURL %>">
+
+                </td>
+                <td>
+                    <%= el.title %>
+                </td>
+                <td>
+                    <%= el.price %>
+                </td>
+                <td>
+                    <%= el.releaseYear %>
+                </td>
+                <td>
+                    <%= el.genre %>
+                </td>
+
+                <td>
+                    <button>Edit</button>
+                    <button>Delete</button>
+                </td>
+            </tr>
+            <%}) %>
+
+
+    </table>
+
+</body>
+
+</html>

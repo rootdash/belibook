@@ -1,15 +1,27 @@
+const { Product } = require('../models')
 class Admin {
-    static adminHome(req, res) {
+    static async adminHome(req, res) {
         try {
-            res.send(`Admin Home`)
+            let data = await Product.findAll();
+            res.render('Admin', { data })
         } catch (error) {
             res.send(error)
         }
     }
 
-    static otherMenusAdmin(req, res) {
+    static async addProduct(req, res) {
         try {
-            res.send(`Other Menus Admin`)
+            res.render('AddProduct')
+        } catch (error) {
+            res.send(error)
+        }
+    }
+
+    static async postAddProduct(req, res) {
+        try {
+            let { title, price, stock, genre, releaseYear, imageURL } = req.body;
+            await Product.create({ title, price, stock, genre, releaseYear, imageURL });
+            res.redirect('/admin')
         } catch (error) {
             res.send(error)
         }
