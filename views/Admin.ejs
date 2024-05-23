@@ -52,6 +52,7 @@
             <th>No.</th>
             <th>Image</th>
             <th>Products Name</th>
+            <th>Stock</th>
             <th>Price</th>
             <th>Released Year</th>
             <th>Genre</th>
@@ -69,6 +70,9 @@
                 </td>
                 <td>
                     <%= el.title %>
+                </td>
+                <td>
+                    <%= el.stock %>
                 </td>
                 <td>
                     <%= formatCurrency(el.price) %>
