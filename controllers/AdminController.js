@@ -1,10 +1,11 @@
 const { where } = require('sequelize');
 const { Product } = require('../models')
+const formatCurrency = require('../helper/formatCurrency')
 class Admin {
     static async adminHome(req, res) {
         try {
             let data = await Product.findAll();
-            res.render('Admin', { data })
+            res.render('Admin', { data, formatCurrency })
         } catch (error) {
             res.send(error)
         }
@@ -48,13 +49,15 @@ class Admin {
             let { title, price, stock, genre, releaseYear, imageURL } = req.body;
             await Product.update({ title, price, stock, genre, releaseYear, imageURL }, { where: { id: productId } });
             res.redirect('/admin')
+            // res.send(req.body)
         } catch (error) {
-            if (error.name == 'SequelizeValidationError') {
-                res.send(error.errors[0].message)
+            let errorMessages = [];
+            if (error.name === 'SequelizeValidationError') {
+                errorMessages = error.errors.map(err => err.message);
             } else {
-                res.send(error)
-
+                errorMessages.push(error.message);
             }
+            res.render('EditProduct', { errors: errorMessages });
         }
     }
     static async deleteProduct(req, res) {

@@ -14,6 +14,13 @@ module.exports = (sequelize, DataTypes) => {
       Product.hasMany(models.Order)
       Product.belongsToMany(models.User, { through: models.Order })
     }
+
+    get formatedDate() {
+      const date = new Date(this.releaseYear);
+      const isoString = date.toISOString();
+      const formattedDate = isoString.slice(0, 10);
+      return formattedDate;
+    }
   }
   Product.init({
     title: {
