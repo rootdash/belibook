@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Register</h2>
+    <form method="post">
+        <label for="email">email</label><br>
+        <input type="text" id="email" name="email"><br>
+        <label for="password">Password</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        <input type="radio" id="admin" name="role" value="admin">
+        <label for="admin">Admin</label>
+        <input type="radio" id="buyer" name="role" value="buyer">
+        <label for="buyer">Buyer</label><br><br>
+        <input type="submit">
+    </form>
+</body>
+
+</html>
