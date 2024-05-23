@@ -9,6 +9,7 @@ router.post('/register', AuthLogin.RegisterPost)
 
 router.use(`/admin`, isAuthenticated, isAdmin, require(`./admin`))
 router.use(`/buyer`, isAuthenticated, isBuyer, require(`./buyer`))
+router.get('/logout', AuthLogin.Logout)
 
 
 module.exports = router

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .report {
+            width: 100%;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .report p {
+            font-size: 1em;
+            margin: 20px 0;
+        }
+
+        .card {
+            box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            width: 35%;
+            display: inline-block;
+            margin: 10px 50px;
+        }
+
+        .card img {
+            height: 15vw;
+            object-fit: cover;
+        }
+
+        .card:hover {
+            box-shadow: 0 16px 25px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            padding: 2px 16px;
+        }
+
+        .container button {
+            margin: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+
+        li {
+            float: left;
+            display: inline;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        li a {
+            display: block;
+            color: rgb(0, 0, 0);
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+
+        }
+
+
+        li:first-child {
+            font-weight: bolder;
+        }
+
+        li:not(:first-line) {
+            font-size: 2.5em;
+        }
+
+        #search {
+            float: right;
+            width: 20%;
+            padding: 12px 20px;
+            margin: 8px 20px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #search:focus {
+            border-color: #000000;
+        }
+
+        #myButton {
+            float: right;
+            background-color: #d1d1d1;
+            color: rgb(83, 83, 83);
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+        }
+
+        #myButton:hover {
+            background-color: #e0e0e0;
+        }
+
+        .logout {
+            float: right;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li><a class="active" href="/buyer">Home</a></li>
+        <li><a href="/buyer/cart">Cart</a></li>
+        <li class="logout"><a href="/logout">Logout</a></li>
+        <li><a href="/buyer/egload">Eager Loading</a></li>
+        <li><a href="/buyer/profile">User Profile</a></li>
+        <li><a href="/buyer/invoice">Invoice</a></li>
+        <form>
+            <button id="myButton">Search</button>
+            <input type="text" id="search" placeholder="Search by title" name="title">
+        </form>
+    </ul>
+    <div class="content">
+        <% data.forEach(({id, title, price, releaseYear, genre, imageURL})=> { %>
+
+            <div class="card">
+                <img src="<%=imageURL%>" alt="Avatar" style="width:100%">
+                <div class="container">
+                    <h4>
+                        <b>
+                            <%=title%>
+                        </b>
+                    </h4>
+                    <p>Some quick example text to build on the card tittle and make up the bulk of the card's content.
+                    </p>
+                    <p>
+                        Genre: <%=genre%>
+                    </p>
+                    <form class="add-to-cart-form" action="/buyer/cart" method="post">
+                        <input type="hidden" name="id" value="<%=id%>">
+                        <button type="submit">Add To Cart</button>
+                    </form>
+                </div>
+            </div>
+            <% }) %>
+    </div>
+    <script>
+        // Get all the "Add To Cart" forms
+        var forms = document.querySelectorAll('.add-to-cart-form');
+
+        // Add a submit event listener to each form
+        forms.forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                // Prevent the form from being submitted normally
+                event.preventDefault();
+
+                // Format the form data as application/x-www-form-urlencoded
+                var formData = new URLSearchParams(new FormData(form)).toString();
+
+                // Send the form data to the server
+                fetch(form.action, {
+                    method: form.method,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: formData
+                }).then(function (response) {
+                    // The request was successful
+                    // You can update the page or display a message here if you want
+                }).catch(function (error) {
+                    // There was an error
+                    console.error('Error:', error);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
