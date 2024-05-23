@@ -46,6 +46,17 @@ class Admin {
             res.send(error)
         }
     }
+    static async deleteProduct(req, res) {
+        try {
+            let { productId } = req.params;
+            let data = await Product.findByPk(productId);
+            data.destroy();
+            res.redirect('/admin');
+        } catch (error) {
+            res.send(error)
+        }
+    }
+
 }
 
 module.exports = Admin
