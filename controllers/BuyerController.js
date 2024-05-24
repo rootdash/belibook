@@ -3,6 +3,7 @@ const { Op } = require(`sequelize`)
 var easyinvoice = require('easyinvoice');
 var fs = require('fs');
 const path = require('path');
+const formatCurrency = require('../helper/formatCurrency')
 
 class Buyer {
     static async buyerHome(req, res) {
@@ -29,7 +30,7 @@ class Buyer {
             let cart = req.session.cart || [];
             let products = await Promise.all(cart.map(id => Product.findByPk(id)));
             let totalPrice = products.reduce((total, product) => total + product.price, 0);
-            res.render('Cart', { products: products, totalPrice: totalPrice });
+            res.render('Cart', { products: products, totalPrice: totalPrice, formatCurrency });
         } catch (error) {
             res.send(error)
         }
@@ -80,18 +81,18 @@ class Buyer {
     }
 
     static async buyerCartDelete(req, res) {
-        try {
-            let productId = String(req.body.id);
-            let cart = req.session.cart || [];
-            let index = cart.indexOf(productId);
-            if (index > -1) {
-                cart.splice(index, 1);
-            }
-            req.session.cart = cart;
-            res.json({ success: true });
-        } catch (error) {
-            res.send(error)
-        }
+        // try {
+        //     let productId = String(req.body.id);
+        //     let cart = req.session.cart || [];
+        //     let index = cart.indexOf(productId);
+        //     if (index > -1) {
+        //         cart.splice(index, 1);
+        //     }
+        //     req.session.cart = cart;
+        //     res.json({ success: true });
+        // } catch (error) {
+        //     res.send(error)
+        // }
     }
 
     static async buyerInvoice(req, res) {
@@ -118,7 +119,7 @@ class Buyer {
                 ]
             });
 
-            // Map over the orders to get the product details
+
             let detailedOrders = {
                 "currency": "IDR",
                 "taxNotation": "vat",
@@ -155,7 +156,7 @@ class Buyer {
 
                 res.sendFile(pdfPath);
             })
-            // res.send(detailedOrders);
+
         } catch (error) {
             res.send(error)
         }
@@ -175,43 +176,43 @@ class Buyer {
         try {
             const userId = req.session.user.id;
             let userProfile = await UserProfile.findOne({ where: { UserId: userId } });
-            res.render('UserProfiles', { userProfile }); // redirect to a success page
+            res.render('UserProfiles', { userProfile });
         } catch (error) {
             console.error(error);
-            res.redirect('/error'); // redirect to an error page
+            res.redirect('/error');
         }
     }
 
     static async buyerProfilePost(req, res) {
         const { phoneNumber, firstName, lastName, address } = req.body;
-        const userId = req.session.user.id; // assuming you have user info in session
+        const userId = req.session.user.id;
 
         try {
-            // Check if a UserProfile already exists for the user
+
             let userProfile = await UserProfile.findOne({ where: { UserId: userId } });
             console.log(userProfile);
             if (userProfile) {
-                // If a UserProfile already exists, update it
+
                 userProfile.phoneNumber = phoneNumber;
                 userProfile.firstName = firstName;
                 userProfile.lastName = lastName;
                 userProfile.address = address;
                 await userProfile.save();
             } else {
-                // If no UserProfile exists, create a new one
+
                 userProfile = await UserProfile.create({
                     phoneNumber,
                     firstName,
                     lastName,
                     address,
-                    UserId: userId // set the UserId to the id of the logged in user
+                    UserId: userId
                 });
             }
-            // Render the UserProfile page, passing the userProfile to it
-            res.render('UserProfiles', { userProfile });// redirect to a success page
+
+            res.render('UserProfiles', { userProfile });
         } catch (error) {
             console.error(error);
-            res.redirect('/error'); // redirect to an error page
+            res.redirect('/error');
         }
     }
 }
