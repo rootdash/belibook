@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .report {
+            width: 100%;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .report p {
+            font-size: 1em;
+            margin: 20px 0;
+        }
+
+        .card {
+            box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            width: 35%;
+            display: inline-block;
+            margin: 10px 50px;
+        }
+
+        .card img {
+            height: 15vw;
+            object-fit: cover;
+        }
+
+        .card:hover {
+            box-shadow: 0 16px 25px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            padding: 2px 16px;
+        }
+
+        .container button {
+            margin: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+
+        li {
+            float: left;
+            display: inline;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        li a {
+            display: block;
+            color: rgb(0, 0, 0);
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+
+        }
+
+
+        li:first-child {
+            font-weight: bolder;
+        }
+
+        li:not(:first-line) {
+            font-size: 2.5em;
+        }
+
+        #search {
+            float: right;
+            width: 20%;
+            padding: 12px 20px;
+            margin: 8px 20px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #search:focus {
+            border-color: #000000;
+        }
+
+        #myButton {
+            float: right;
+            background-color: #d1d1d1;
+            color: rgb(83, 83, 83);
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+        }
+
+        #myButton:hover {
+            background-color: #e0e0e0;
+        }
+
+        .logout {
+            float: right;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li><a class="active" href="/buyer">Home</a></li>
+        <li><a href="/buyer/cart">Cart</a></li>
+        <li class="logout"><a href="/logout">Logout</a></li>
+        <li><a href="/buyer/egload">Eager Loading</a></li>
+        <li><a href="/buyer/invoice">Invoice</a></li>
+    </ul>
+    <form action="/buyer/profile" method="post">
+        <label for="phoneNumber">Phone Number:</label><br>
+        <input type="text" id="phoneNumber" name="phoneNumber"
+            value="<%= userProfile ? userProfile.phoneNumber : '' %>"><br>
+        <label for="firstName">First Name:</label><br>
+        <input type="text" id="firstName" name="firstName" value="<%= userProfile ? userProfile.firstName : '' %>"><br>
+        <label for="lastName">Last Name:</label><br>
+        <input type="text" id="lastName" name="lastName" value="<%= userProfile ? userProfile.lastName : '' %>"><br>
+        <label for="address">Address:</label><br>
+        <input type="text" id="address" name="address" value="<%= userProfile ? userProfile.address : '' %>"><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>
