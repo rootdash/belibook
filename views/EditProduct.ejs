@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Incubators</title>
+    <style>
+        input[type=text],
+        select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        div {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="/admin" class="button">Products</a>
+    <a href="/logout">Logout</a>
+    <h2>Edit Products</h2>
+    <h4>Please fill the form below to edit Product!</h4>
+
+    <div>
+        <form action="/admin/editProduct/<%= data.id %>" method="POST">
+            <label for="">Title</label>
+            <input type="text" id="title" name="title" value="<%=data.title%>">
+            <label for="">Price</label>
+            <input type="text" id="price" name="price" value="<%=data.price%>">
+            <label for="">Stock</label>
+            <input type="text" id="stock" name="stock" value="<%=data.stock%>">
+            <label for="">Genre</label>
+            <input type="text" id="genre" name="genre" value="<%=data.genre%>">
+            <label for="">Released Year</label><br>
+            <input type="date" id="releaseYear" name="releaseYear" value="<%=data.formatedDate%>">
+            <br>
+            <label for="">Image URL</label>
+            <input type="text" id="imageURL" name="imageURL" value="<%=data.imageURL%>">
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+
+</html>

@@ -48,6 +48,17 @@ class AuthLogin {
             res.send(error)
         }
     }
+
+    static async Logout(req, res) {
+        try {
+            req.session.destroy((err) => {
+                if (err) throw err;
+                res.redirect('/');
+            });
+        } catch (error) {
+            res.send(error)
+        }
+    }
 }
 
 module.exports = AuthLogin

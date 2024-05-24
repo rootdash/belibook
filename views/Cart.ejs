@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+
+        li {
+            float: left;
+            display: inline;
+        }
+
+        li a {
+            display: block;
+            color: rgb(0, 0, 0);
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+
+        }
+
+
+        li:first-child {
+            font-weight: bolder;
+        }
+
+        li:not(:first-line) {
+            font-size: 2.5em;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li><a class="active" href="/buyer">Home</a></li>
+        <li><a href="/buyer/cart">Cart</a></li>
+        <li><a href="/buyer/egload">Eager Loading</a></li>
+        <li><a href="/buyer/profile">User Profile</a></li>
+        <li class="logout"><a href="/logout">Logout</a></li>
+    </ul>
+    <h2>Cart</h2>
+    <form action="/buyer/purchase" method="post">
+        <table>
+            <tr>
+                <th>No. </th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Amount</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+            <% products.forEach(({id,title,price,stock},index)=> { %>
+                <tr>
+                    <td>
+                        <%= index +1 %>
+                    </td>
+                    <td>
+                        <%= title %>
+                    </td>
+                    <td>
+                        <%= formatCurrency(price) %>
+                    </td>
+                    <td>1</td>
+                    <td>
+                        <%= formatCurrency(price) %>
+                    </td>
+                    <td>
+                        Delete
+                    </td>
+                </tr>
+                <% }) %>
+
+                    <tr>
+                        <th colspan="4">Total</th>
+                        <td>
+                            <%= formatCurrency(totalPrice) %>
+                        </td>
+                        <td>
+                            <input type="submit" value="Buy Now">
+                        </td>
+                    </tr>
+        </table>
+    </form>
+
+</body>
+
+</html>
