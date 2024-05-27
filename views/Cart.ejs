@@ -81,14 +81,15 @@
                         <%= title %>
                     </td>
                     <td>
-                        <%= formatCurrency(price) %>
+                        <%= price %>
                     </td>
                     <td>1</td>
                     <td>
-                        <%= formatCurrency(price) %>
+                        <%= price %>
                     </td>
                     <td>
-                        Delete
+                        <button class="delete-button" data-id="<%= id %>">Delete</button>
+                        <input type="hidden" name="productIds[]" value="<%= id %>">
                     </td>
                 </tr>
                 <% }) %>
@@ -96,7 +97,7 @@
                     <tr>
                         <th colspan="4">Total</th>
                         <td>
-                            <%= formatCurrency(totalPrice) %>
+                            <%= totalPrice %>
                         </td>
                         <td>
                             <input type="submit" value="Buy Now">
